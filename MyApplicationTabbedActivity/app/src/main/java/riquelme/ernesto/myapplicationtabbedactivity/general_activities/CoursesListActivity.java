@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -148,6 +149,8 @@ public class CoursesListActivity extends AppCompatActivity {
                 new RecyclerItemClickListener(this, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
+                        Toast.makeText(getApplicationContext(), "Por alguna razón que desconozco explota " +
+                                "al intentar coger la posición: " + position, Toast.LENGTH_SHORT).show();
                         sharedStore.setSelectedCourse(courseList.get(position));
                     }
 

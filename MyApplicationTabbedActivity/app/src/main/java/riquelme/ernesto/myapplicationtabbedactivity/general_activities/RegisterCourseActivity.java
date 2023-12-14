@@ -63,13 +63,12 @@ public class RegisterCourseActivity extends AppCompatActivity {
     public void registerCourse() { // TODO <- aqui me he quedado
         String title = String.valueOf(titleCourseEditText.getText());
         String shortPresentation = String.valueOf(presentationCourseTextMultiLine.getText());
-        String longPresentation = "";
+        String longPresentation =  "";
         int idTeacher = sharedStore.getUser().getIdUser();
-        String tags;
+        String tags = String.valueOf(tagsREditText.getText());;
 
         String startDate = String.valueOf(openTextDate.getText());
-        String endDate = String.valueOf(openTextDate.getText());
-        closeTextDate.getText();
+        String endDate = String.valueOf(closeTextDate.getText());
 
         if (sharedStore.getSelectedCourse() == null) { //  INSERT
             boolean hidden = true;
@@ -84,7 +83,7 @@ public class RegisterCourseActivity extends AppCompatActivity {
                     + "#" + tags);
             sharedStore.waitUntilResponse(true);
             if(sharedStore.getResponseResults().equals("Ok")){
-
+                startActivity(new Intent(this, CoursesListActivity.class));
             }
 
         } else { // UPDATE
@@ -95,14 +94,14 @@ public class RegisterCourseActivity extends AppCompatActivity {
                     + "#" + title // 2. Titulo
                     + "#" + shortPresentation // 3. Presentación Corta
                     + "#" + longPresentation // 4. Presentación Larga
-                    + "#" + startDateString // 5. Fecha Inicio
-                    + "#" + endDateString // 6. Fecha Final
+                    + "#" + startDate // 5. Fecha Inicio
+                    + "#" + endDate // 6. Fecha Final
                     + "#" + hidden // 7. Oculto
                     + "#" + idTeacher // 8. Id Profesor
                     + "#" + tags); // 9. Tags?
             sharedStore.waitUntilResponse(true);
             if(sharedStore.getResponseResults().equals("Ok")){
-
+                startActivity(new Intent(this, CoursesListActivity.class));
             }
         }
     }
@@ -148,6 +147,7 @@ public class RegisterCourseActivity extends AppCompatActivity {
         }
 
         registerCourseButton.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
                 registerCourse();
