@@ -1,6 +1,7 @@
 package riquelme.ernesto.myapplicationtabbedactivity.general_activities;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -8,6 +9,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import riquelme.ernesto.myapplicationtabbedactivity.R;
@@ -57,6 +59,7 @@ public class RegisterCourseActivity extends AppCompatActivity {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void registerCourse() { // TODO <- aqui me he quedado
         String title = String.valueOf(titleCourseEditText.getText());
         String shortPresentation = String.valueOf(presentationCourseTextMultiLine.getText());
@@ -64,22 +67,19 @@ public class RegisterCourseActivity extends AppCompatActivity {
         int idTeacher = sharedStore.getUser().getIdUser();
         String tags;
 
-        openTextDate.getText();
+        String startDate = String.valueOf(openTextDate.getText());
+        String endDate = String.valueOf(openTextDate.getText());
         closeTextDate.getText();
 
-
-
-        if (sharedStore.getSelectedCourse() == null) { // INSERT
+        if (sharedStore.getSelectedCourse() == null) { //  INSERT
             boolean hidden = true;
-            String startDate = conversions.convertDateToString(c.getStartDate());
-            String endDate = conversions.convertDateToString(c.getEndDate());
 
             sharedStore.setClientMessage(sharedStore.getProtocolMessages().getClientArgument(16) // C16#...
                     + "#" + title
                     + "#" + shortPresentation
                     + "#" + longPresentation
-                    + "#" + startDateString
-                    + "#" + endDateString
+                    + "#" + startDate
+                    + "#" + endDate
                     + "#" + idTeacher
                     + "#" + tags);
             sharedStore.waitUntilResponse(true);
